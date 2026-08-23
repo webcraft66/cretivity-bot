@@ -3,7 +3,7 @@
 // so this project has zero npm dependencies. The API key is read from an
 // environment variable and never sent to the browser.
 
-const MODEL = process.env.GEMINI_MODEL || "gemini-2.5-flash";
+const MODEL = process.env.GEMINI_MODEL || "gemini-1.5-flash";
 const MAX_OUTPUT_TOKENS = Number(process.env.GEMINI_MAX_OUTPUT_TOKENS) || 1024;
 const MAX_HISTORY_MESSAGES = 20;
 
