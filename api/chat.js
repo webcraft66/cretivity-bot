@@ -151,36 +151,13 @@ module.exports = async (req, res) => {
       }
     );
 
-    const data = await geminiRes.json();
-
     if (!geminiRes.ok) {
-      const msg = (data && data.error && data.error.message) || "";
-      if (geminiRes.status === 400 || /API key not valid/i.test(msg)) {
-        res.status(401).json({
-          error:
-            "Authentication with the AI provider failed. Please check that GEMINI_API_KEY is set correctly.",
-        });
-        return;
-      }
-      if (geminiRes.status === 403) {
-        res.status(403).json({
-          error:
-            "The AI provider rejected this request. Please verify your GEMINI_API_KEY has access to the Gemini API.",
-        });
-        return;
-      }
-      if (geminiRes.status === 429) {
-        res.status(429).json({
-          error:
-            "CerevityAI Partnership Assistant is receiving a lot of requests right now. Please wait a moment and try again.",
-        });
-        return;
-      }
-      res.status(502).json({
-        error: "The AI provider is temporarily unavailable. Please try again shortly.",
-      });
-      return;
+        const errText = await geminiRes.text();
+        console.error("Gemini API Error:", errText);
+        return res.status(502).json({ error: "AI provider temporarily unavailable." });
     }
+
+    const data = await geminiRes.json();
 
     const candidate = data.candidates && data.candidates[0];
     const reply =
