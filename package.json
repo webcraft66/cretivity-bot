@@ -1,0 +1,6 @@
+{
+  "name": "cerevityai-static-chatbot",
+  "version": "1.0.0",
+  "private": true,
+  "description": "CerevityAI Partnership Assistant — plain HTML/CSS/JS + a Vercel serverless function for Gemini. Zero build step, zero npm dependencies."
+}
